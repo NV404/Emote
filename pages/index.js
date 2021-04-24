@@ -113,7 +113,7 @@ export default function Index() {
                   </InfiniteScroll>
                 }
               </div>
-              <div className="w-96 max-h-56 bg-white hidden rounded-xl shadow-xl flex-col lg:flex">
+              <div className="w-96 self-start bg-white hidden rounded-xl shadow-xl flex-col lg:flex">
                 <p className="py-2 font-bold text-center">Explore Other Profiles</p>
                 {UserDetails == null ?
                   <div className="w-full flex justify-center item-center mt-40">
