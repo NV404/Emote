@@ -2,30 +2,31 @@ import { useState } from "react";
 import { useAuth } from '../lib/auth'
 import Header from '../src/components/Header/header.js'
 import Router from 'next/router'
+import { db } from '../lib/firebase'
 
 
 export default function authenticate() {
-    const { signin, register, user } = useAuth();
+    const { signin, register, user, errorMessage } = useAuth();
     const [login, setlogin] = useState(true);
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
     const [username, setUsername] = useState(null);
-    const [loginshowerror, setloginshowerror] = useState(false)
-    const [registershowerror, setregistershowerror] = useState(false)
+    const [loginshowerror, setloginshowerror] = useState(null)
+    const [registershowerror, setregistershowerror] = useState(null)
 
     var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     var usernameformat = /^(?=[a-zA-Z0-9._]{4,12}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
     const signinuser = () => {
         if (email != null && password != null) {
             if (email.match(mailformat) && password.length >= 6) {
-                setloginshowerror(false);
+                setloginshowerror(null);
                 signin(email,password)
             }
             else{
-                setloginshowerror(true);
+                setloginshowerror(<p className='text-center text-red-700 font-bold'>*Email Required<br/>*Password length Must be at least 6 Letters</p>);
             }
         } else {
-            setloginshowerror(true);
+            setloginshowerror(<p className='text-center text-red-700 font-bold'>*Email Required<br/>*Password length Must be at least 6 Letters</p>);
         }
         
     }
@@ -33,14 +34,21 @@ export default function authenticate() {
     const registeruser = () => {
         if (email != null && password != null && username != null) {
             if (email.match(mailformat) && password.length >= 6 && username.match(usernameformat)) {
-                setregistershowerror(false);
-                register(email,password,username);
+                setregistershowerror(null);
+                db.collection("users")
+            .doc(username)
+            .onSnapshot((snapshot) => {
+                {snapshot.data() == undefined ? register(email,password,username) : setregistershowerror(<p className="text-center text-red-700 font-bold">*Username Already Taken</p>);}
+            },(error) =>{
+                console.log(error)
+            });
+            setregistershowerror(null);
             }
             else{
-                setregistershowerror(true);
+                setregistershowerror(<p className="text-center text-red-700 font-bold">*Email Required<br/>*Password length Must be at least 6 Charaters<br/>*Username lenght 4-12 Charaters without Space without _ or . in end and beginning</p>);
             }
         } else {
-            setregistershowerror(true);
+            setregistershowerror(<p className="text-center text-red-700 font-bold">*Email Required<br/>*Password length Must be at least 6 Charaters<br/>*Username lenght 4-12 Charaters without Space without _ or . in end and beginning</p>);
         }
     }
 
@@ -69,12 +77,13 @@ export default function authenticate() {
             </div> : <></> }
 
             {login == false ? 
-            <><input type="submit" value="Register" onClick={registeruser} className=" px-10 py-2 bg-blue-700 text-white rounded-lg mb-3"/>
+            <><button onClick={registeruser} className=" px-10 py-2 bg-blue-700 text-white rounded-lg mb-3">Register</button>
              <button className="border-2 px-10 py-2 text-blue-700 rounded-lg mb-3 border-blue-700" onClick={() => setlogin(true)}>Login</button></>
             : <> <button className="bg-blue-700 px-10 py-2 text-white rounded-lg mb-3" onClick={signinuser}>Login</button>
             <button className="border-2 px-10 py-2 text-blue-700 border-blue-700 rounded-lg mb-3" onClick={() => setlogin(false)}>Register</button> </> }
-            {loginshowerror == true? <p className="text-center text-red-700 font-bold">*Email Required<br/>*Password length Must be at least 6 Letters</p> : null}
-            {registershowerror == true? <p className="text-center text-red-700 font-bold">*Email Required<br/>*Password length Must be at least 6 Charaters<br/>*Username lenght 4-12 Charaters without Space without _ or . in end and beginning</p> : null}
+            {loginshowerror? loginshowerror : null}
+            {errorMessage? <p className='text-center text-red-700 font-bold'>{errorMessage}</p> : null}
+            {registershowerror? registershowerror : null}
             <p className="text-center font-bold" >Created with ❤️ By Naman</p>
         </div>
         </>

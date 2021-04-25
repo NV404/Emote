@@ -11,7 +11,6 @@ export default function Index() {
   const { user, loading, signout } = useAuth();
   const [PostDetails, setPostDetails] = useState(null);
   const [UserDetails, setUserDetails] = useState(null);
-  const [hasmore, sethasmore] = useState(true);
   const [lastVisible, setlastVisible] = useState(null)
   const [checkstring, setcheckstring] = useState(null)
 
