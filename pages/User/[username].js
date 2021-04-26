@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import Header from '../../src/components/Header/header'
 import { db } from '../../lib/firebase'
+import Head from 'next/head'
 
 export default function user() {
     const router = useRouter()
@@ -18,6 +19,9 @@ export default function user() {
 
     return (
         <>
+        <Head>
+            <title>{username}</title>
+        </Head>
             <Header />
             {UserProfile ?
 

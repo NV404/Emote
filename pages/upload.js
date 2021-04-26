@@ -5,6 +5,7 @@ import { db, storage } from '../lib/firebase'
 import { useRouter } from 'next/router'
 import NotFound from '../src/components/NotFound/NotFound'
 import firebase from "firebase/app";
+import Head from 'next/head'
 
 export default function Index() {
     const { user, loading } = useAuth();
@@ -39,6 +40,7 @@ export default function Index() {
     }
 
     const uplaodpost = () => {
+        
         var randomtxt = randomstring.generate(10);
         var uploadTask = storage.ref(`images/${randomtxt+Image.name}`).put(Image);
         uploadTask.on('state_changed',
@@ -85,6 +87,9 @@ export default function Index() {
 
     return (
         <>
+        <Head>
+            <title>Upload Post</title>
+        </Head>
             <Header />
             {loading == true ? 
             <> <div className="w-full flex justify-center item-center mt-40">

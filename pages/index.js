@@ -4,6 +4,7 @@ import { useAuth } from '../lib/auth'
 import { db } from '../lib/firebase'
 import { useState, useEffect } from 'react'
 import Router from 'next/router'
+import Head from 'next/head'
 import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function Index() {
@@ -62,6 +63,9 @@ export default function Index() {
 
   return (
     <>
+    <Head>
+            <title>Home</title>
+        </Head>
       <Header />
       {loading == true ?
         <div className="w-full flex justify-center item-center mt-40">

@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { auth, storage, db } from '../lib/firebase'
 import NotFound from '../src/components/NotFound/NotFound'
 import Router from 'next/router'
+import Head from 'next/head'
 
 export default function Index() {
 
@@ -68,6 +69,9 @@ export default function Index() {
 
     return (
         <>
+        <Head>
+            <title>Profile</title>
+        </Head>
             <Header />
             {loading == true ?
                 <div className="w-full flex justify-center item-center mt-40">

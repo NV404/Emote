@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuth } from '../lib/auth'
 import Header from '../src/components/Header/header.js'
 import Router from 'next/router'
+import Head from 'next/head'
 import { db } from '../lib/firebase'
 
 
@@ -59,6 +60,9 @@ export default function authenticate() {
 
     return (
         <>
+        <Head>
+            <title>Login</title>
+        </Head>
         <Header></Header>
         <div className="bg-white flex flex-col mt-40 mx-10 px-8 py-10 rounded-lg lg:w-96 lg:mx-auto">
             <h3 className="text-center font-bold text-xl mb-3">{login == false ? "REGISTER" : "LOG IN" }</h3>
