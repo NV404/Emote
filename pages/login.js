@@ -77,7 +77,7 @@ export default function authenticate() {
 
             {login == false ? <div className="relative flex w-full flex-wrap items-stretch mb-3">
                 <span className="z-10 h-full leading-snug font-normal absolute text-center text-blueGray-300 absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3"></span>
-                <input onChange={(e) => setUsername(e.target.value)} required type="text" placeholder="UserName" className="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:ring w-full " />
+                <input onChange={(e) => setUsername((e.target.value).toLowerCase())} required type="text" placeholder="UserName" className="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:ring w-full " />
             </div> : <></> }
 
             {login == false ? 
