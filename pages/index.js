@@ -146,11 +146,10 @@ export default function Index() {
             </div>
           </div>
           :
-          <div className="mt-20 mx-6 w-4/5 bg-purple-800 text-white rounded-xl shadow-xl p-10 flex items-center mx-auto justify-center lg:justify-evenly">
-            <img src='/static/images/doge.jpg' className="hidden h-96 rounded-xl lg:block" />
+          <div className="mt-20 mx-6 w-4/5 bg-purple-800 text-white rounded-xl shadow-xl p-10 flex items-center mx-auto justify-center">
             <div className="flex flex-col items-center">
-              <p className="font-bold text-9xl uppercase">yoo</p>
-              <button className="bg-white px-10 py-2 text-purple-800 rounded-lg my-5" onClick={() => Router.push('/login')}>LOGIN</button>
+              <p className="font-bold text-6xl uppercase">This project is continued on different repository</p>
+              <button className="bg-white px-10 py-2 text-purple-800 rounded-lg my-5" onClick={() => Router.push('https://github.com/NV404/Noob')}>GO TO NEW REPOSITORY</button>
             </div>
           </div>
         }</>}

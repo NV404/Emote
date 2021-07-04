@@ -25,11 +25,7 @@ const { user } = useAuth();
           </a>
         </Link>
         : <div>
-          <Link href='/login'>
-            <a>
-          <button className="px-8 py-2 rounded-lg bg-purple-800 text-white mr-3">Log In</button>
-          </a>
-          </Link>
+          
         </div>}
     </div>
   )
